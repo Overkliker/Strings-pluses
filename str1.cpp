@@ -7,32 +7,50 @@
 
 using namespace std;
 
-int CountWords(string sentence)
+void CountWords(string sentence)
 {
-    int numberOfWords = 0;
-    size_t i;
-
-    if (isalpha(sentence[0])) {
-        numberOfWords++;
-    }
-
-    for (i = 1; i < sentence.length(); i++) {
-        if ((isalpha(sentence[i])) && (!isalpha(sentence[i-1]))) {
-            numberOfWords++;
+    char separator = ' ';
+    int i = 0;
+    
+    string s; 
+    int ct = 0;
+    while (sentence[i] != '\0') {
+        if (sentence[i] != ' ' && sentence[i] != ',' && sentence[i] != '.' && 
+        sentence[i] != '?' && sentence[i] != '!') {
+            s += sentence[i]; 
+        } 
+        else {
+            if (s != ""){
+            cout << s << endl;
+            s.clear();
+            ct++;
+            }
         }
+        i++;
     }
-
-    return numberOfWords;
+    cout << ct << endl;
 }
 
 void equal(string f, string s){
-    transform(f.begin(), f.end(), f.begin(), ::tolower);
-    transform(s.begin(), s.end(), s.begin(), ::tolower);
-    if (f == s){
-        cout << true << endl;
+    int ct = 0;
+    int len1 = f.length();
+    int len2 = s.length();
+
+    if (len1 == len2){
+         for (int i = 0; i < (f.length()); i++){
+            if (tolower(f[i]) == tolower(s[i])){
+                ct++;
+            }
+        }
+        if (ct == len1){
+            cout << 1 << endl;
+        }
+        else {
+            cout << 0 << endl;
+        }
     }
     else{
-        cout << false << endl;
+        cout << 0 << endl;
     }
 }
 
@@ -45,7 +63,7 @@ void number(string str){
 
 void podstr(string f, string s, string fd){
     int f1 = f.find_first_of(s);
-    int s2 = f.find_last_of(s);
+    int s2 = f.find_last_of(s) + 1;
     
     cout << f.replace(f1, s2, fd) << endl;
 }
@@ -74,7 +92,7 @@ int main(){
     cout << "Ведите седьмую строку: ";
     getline(cin, g);
 
-    cout << CountWords(a) << endl;
+    CountWords(a);
     number(b);
     equal(c, d);
     podstr(e, f, g);
